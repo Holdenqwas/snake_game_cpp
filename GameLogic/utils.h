@@ -5,5 +5,6 @@ enum class Directions {
     Up,
     Right,
     Down,
-    Left
+    Left,
+    Stop
 };

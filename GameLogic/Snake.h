@@ -2,29 +2,37 @@
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <utils.h>
+#include "utils.h"
 
-
-class Segment{
+class Segment
+{
 public:
-    Segment();
-    ~Segment();
-    void draw();
+    Segment(){};
+    Segment(int x, int y);
+    Segment(int x, int y, sf::Color col);
+    ~Segment(){};
+    Directions getDirection();
+    void setDirection(Directions newDirection);
+    void move();
+    void draw(sf::RenderWindow &window);
+
 private:
     int x;
     int y;
-    size_t moveDirection;
+    Directions moveDirection;
     sf::RectangleShape block;
 };
 
-
-class Snake{
+class Snake
+{
 public:
     Snake();
-    ~Snake();
+    ~Snake(){};
     void increaseBody();
-    void move(Directions);
-    void draw();
+    void move();
+    void changeDirection(Directions newDirection);
+    void draw(sf::RenderWindow &window);
+
 private:
-    std::vector <Segment> body;
+    std::vector<Segment> body;
 };

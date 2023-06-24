@@ -1,8 +1,7 @@
-#include <SFML/Graphics.hpp>
-#include <Snake.h>
-#include <utils.h>
+#include "Controller.h"
 
-void Controller(sf::Event &event, sf::RenderWindow &window, Snake &snake)
+
+void controller(sf::Event &event, sf::RenderWindow &window, Snake &snake)
 {
     if (event.type == sf::Event::Closed)
     {
@@ -15,13 +14,13 @@ void Controller(sf::Event &event, sf::RenderWindow &window, Snake &snake)
         case sf::Keyboard::Escape:
             window.close();
         case sf::Keyboard::Left:
-            snake.move(Directions::Left);
+            snake.changeDirection(Directions::Left);
         case sf::Keyboard::Up:
-            snake.move(Directions::Up);
+            snake.changeDirection(Directions::Up);
         case sf::Keyboard::Down:
-            snake.move(Directions::Down);
+            snake.changeDirection(Directions::Down);
         case sf::Keyboard::Right:
-            snake.move(Directions::Right);
+            snake.changeDirection(Directions::Right);
         }
     }
 }
