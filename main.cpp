@@ -9,7 +9,7 @@
 
 int main()
 {
-    sf::Time TimePerFrame = sf::seconds(1.f / 10.f);
+    sf::Time TimePerFrame = sf::seconds(1.f / 2.f);
 
     std::vector<sf::RectangleShape> figs;
 
@@ -18,6 +18,7 @@ int main()
 
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = TimePerFrame;
+    int x = 50, y = 50;
 
     Snake snake = Snake();
     while (window.isOpen())
@@ -55,6 +56,7 @@ int main()
             };
 
             snake.draw(window);
+
             window.display();
             figs.clear();
 

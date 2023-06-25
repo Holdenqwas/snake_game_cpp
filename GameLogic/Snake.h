@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 #include "utils.h"
 
 class Segment
@@ -34,5 +35,5 @@ public:
     void draw(sf::RenderWindow &window);
 
 private:
-    std::vector<Segment> body;
+    std::vector<Segment*> body;
 };
