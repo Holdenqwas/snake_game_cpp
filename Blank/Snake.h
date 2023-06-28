@@ -16,11 +16,11 @@ public:
     void setDirection(Directions newDirection);
     void move();
     void draw(sf::RenderWindow &window);
-
+    Directions moveDirection;
 private:
     int x;
     int y;
-    Directions moveDirection;
+    
     sf::RectangleShape block;
 };
 

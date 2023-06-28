@@ -34,7 +34,7 @@ int main()
                 controller(event, window, snake);
             }
 
-            for (size_t i = 1; i < 10; i++)
+            for (int i = 1; i < 10; i++)
             {
                 sf::RectangleShape line_h = sf::RectangleShape(sf::Vector2f(520, 2));
                 line_h.setPosition(sf::Vector2f(0, i * 52));
@@ -58,7 +58,7 @@ int main()
             snake.draw(window);
 
             window.display();
-             figs.clear();
+            figs.clear();
 
         }
     }
