@@ -1,23 +1,13 @@
 #include "Snake.h"
 
-Segment::Segment(int i_x, int i_y)
-{
-    x = i_x * 52 + 5;
-    y = i_y * 52 + 5;
-    this->block = sf::RectangleShape(sf::Vector2f(40, 40));
-    this->block.setPosition(sf::Vector2f(this->x, this->y));
-    this->block.setFillColor(sf::Color::White);
-    this->moveDirection = Directions::Right;
-}
 
-Segment::Segment(int i_x, int i_y, sf::Color col)
+Segment::Segment(int i_x, int i_y, Directions direct, sf::Color col)
 {
-    x = i_x * 52 + 5;
-    y = i_y * 52 + 5;
+    pos = Position(i_x, i_y);
     this->block = sf::RectangleShape(sf::Vector2f(40, 40));
-    this->block.setPosition(sf::Vector2f(this->x, this->y));
+    this->block.setPosition(sf::Vector2f(i_x * 52 + 5, i_y * 52 + 5));
     this->block.setFillColor(col);
-    this->moveDirection = Directions::Right;
+    this->moveDirection = direct;
 }
 
 void Segment::draw(sf::RenderWindow &window)
@@ -42,26 +32,41 @@ void Segment::move()
     switch (this->moveDirection)
     {
     case Directions::Down:
-        this->y += 52;
+        pos.y += 1;
         break;
     case Directions::Up:
-        this->y -= 52;
+        pos.y -= 1;
         break;
     case Directions::Left:
-        this->x -= 52;
+        pos.x -= 1;
         break;
     case Directions::Right:
-        this->x += 52;
+        pos.x += 1;
         break;
     default:
         break;
     }
-    this->block.setPosition(sf::Vector2f(this->x, this->y));
+    this->block.setPosition(sf::Vector2f(pos.x * 52 + 5, pos.y * 52 + 5));
+}
+
+Position Segment::getPosition() {
+    return pos;
+}
+
+void Segment::setPosition(Position newPos)
+{
+    pos = newPos;
+    this->block.setPosition(sf::Vector2f(pos.x * 52 + 5, pos.y * 52 + 5));
 }
 
 Snake::Snake()
 {
-    this->body.push_back(new Segment(4, 4, sf::Color::Red));
+    this->body.push_back(new Segment(4, 4, Directions::Right, sf::Color::Red));
+}
+
+void Snake::increaseBody()
+{
+    body.push_back(new Segment(lastPos.x, lastPos.y, body.back()->getDirection()));
 }
 
 void Snake::move()
@@ -72,6 +77,7 @@ void Snake::move()
     {
         tempDirection = seg->getDirection();
         seg->setDirection(prevDirection);
+        lastPos = seg->getPosition();
         seg->move();
         prevDirection = tempDirection;
     }
@@ -84,9 +90,24 @@ void Snake::changeDirection(Directions newDirection)
 
 void Snake::draw(sf::RenderWindow &window)
 {
+    move();
     for (auto seg : this->body)
     {
-        this->move();
         seg->draw(window);
     }
+}
+
+bool Snake::posInSnake(Position& pos, bool withHead)
+{
+    for (size_t i = (withHead ? 0 : 1); i < body.size(); i++) {
+        if (pos == body[i]->getPosition()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+Position Snake::getHeadPos()
+{
+    return body[0]->getPosition();
 }

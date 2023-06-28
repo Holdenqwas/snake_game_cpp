@@ -6,6 +6,7 @@
 
 #include "Controller.h"
 #include "Snake.h"
+#include "Game.h"
 
 int main()
 {
@@ -21,6 +22,24 @@ int main()
     int x = 50, y = 50;
 
     Snake snake = Snake();
+    Game game = Game();
+
+    for (int i = 1; i < 10; i++)
+    {
+        sf::RectangleShape line_h = sf::RectangleShape(sf::Vector2f(520, 2));
+        line_h.setPosition(sf::Vector2f(0, i * 52));
+        line_h.setFillColor(sf::Color::White);
+
+        figs.push_back(line_h);
+
+        sf::RectangleShape line_v = sf::RectangleShape(sf::Vector2f(520, 2));
+        line_v.setPosition(sf::Vector2f(i * 52, 0));
+        line_v.rotate(90);
+        line_v.setFillColor(sf::Color::White);
+
+        figs.push_back(line_v);
+    }
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -34,32 +53,18 @@ int main()
                 controller(event, window, snake);
             }
 
-            for (int i = 1; i < 10; i++)
-            {
-                sf::RectangleShape line_h = sf::RectangleShape(sf::Vector2f(520, 2));
-                line_h.setPosition(sf::Vector2f(0, i * 52));
-                line_h.setFillColor(sf::Color::White);
-
-                figs.push_back(line_h);
-                    
-                sf::RectangleShape line_v = sf::RectangleShape(sf::Vector2f(520, 2));
-                line_v.setPosition(sf::Vector2f(i * 52, 0));
-                line_v.rotate(90);
-                line_v.setFillColor(sf::Color::White);
-
-                figs.push_back(line_v);
-            }
             window.clear(sf::Color::Black);
             for (auto item : figs)
             {
                 window.draw(item);
             };
 
+            game.checkStatus(snake, window);
+            game.draw(window);
+
             snake.draw(window);
 
             window.display();
-            figs.clear();
-
         }
     }
     return 0;
