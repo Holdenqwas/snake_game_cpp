@@ -4,8 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "GameLogic/Controller.h"
-#include "GameLogic/Snake.h"
+#include "Controller.h"
+#include "Snake.h"
 
 int main()
 {
@@ -58,7 +58,7 @@ int main()
             snake.draw(window);
 
             window.display();
-            figs.clear();
+             figs.clear();
 
         }
     }
