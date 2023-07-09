@@ -71,15 +71,15 @@ void Snake::increaseBody()
 
 void Snake::move()
 {
-    Directions prevDirection = this->body[0]->getDirection();
-    Directions tempDirection;
-    for (auto seg : this->body)
+    Position prevPosition = this->body[0]->getPosition();
+    Position tempPosition;
+    this->body[0]->move();
+    for (size_t i = 1; i < this->body.size(); i++)
     {
-        tempDirection = seg->getDirection();
-        seg->setDirection(prevDirection);
-        lastPos = seg->getPosition();
-        seg->move();
-        prevDirection = tempDirection;
+        tempPosition = this->body[i]->getPosition();
+        this->body[i]->setPosition(prevPosition);
+        prevPosition = tempPosition;
+        lastPos = this->body[i]->getPosition();
     }
 }
 

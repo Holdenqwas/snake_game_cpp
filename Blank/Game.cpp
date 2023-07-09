@@ -7,7 +7,7 @@ Game::Game() {
 	while (snakePos == pos) {
 		pos = Position(std::rand() % 9, std::rand() % 9);
 	}
-	std::cout << pos.x << " " << pos.y << std::endl;
+
 	apple = new Segment(pos.x, pos.y, Directions::Right, sf::Color::Green);
 
 	score = 0;

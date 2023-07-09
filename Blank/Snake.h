@@ -47,4 +47,6 @@ public:
 private:
     Position lastPos;
     std::vector<Segment*> body;
+    Directions newDirection = Directions::Right;
+    int length = 1;
 };
